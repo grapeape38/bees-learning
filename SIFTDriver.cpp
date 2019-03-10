@@ -102,7 +102,7 @@ int main(int argc, char **argv) {
         return -1;
     }
     char *wp = write ? write_path : NULL;
-    SIFTFeatures sft(false, verbose);
+    SIFTFeatures sft(v2c, false, verbose);
     Runtime::Buffer<uint8_t,3> input;
     Runtime::Buffer<uint8_t> output;
     loadImage(input, image_path);

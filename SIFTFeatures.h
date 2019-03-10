@@ -12,7 +12,7 @@ using namespace Halide;
 
 class SIFTFeatures : public FeatureExtractor {
     public:
-        SIFTFeatures(bool inter=true, bool verb=false);
+        SIFTFeatures(VectorToColor *v2c=NULL, bool inter=true, bool verb=false);
         void computeFeatures(Runtime::Buffer<uint8_t,3> input);   
     private:
         void getDescriptors(Runtime::Buffer<float,3> mag, Runtime::Buffer<int16_t,3> theta);

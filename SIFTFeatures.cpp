@@ -4,7 +4,8 @@
 #include <cmath>
 #include <fstream>
 
-SIFTFeatures::SIFTFeatures(bool inter, bool verb) {
+SIFTFeatures::SIFTFeatures(VectorToColor *v2c, bool inter, bool verb) {
+    vec2color = v2c;
     interleaved = inter;
     error = false;
     verbose = verb;
@@ -96,22 +97,21 @@ void SIFTFeatures::computeFeatures(Runtime::Buffer<uint8_t,3> input) {
         const float maxT = 10.0f, minC = 0.03f;
         int kMax = s - 2, xMax = width - 1, yMax = height - 1;
         auto clmp = [](double d, double mn, double mx) { return std::max(std::min(d, mx), mn); };
-        auto update = [](float f) { return f + f / fabsf(f); };
         int num_interp = 0;
         for (const auto &v : kp1) {
             int k = v[0], x = v[1], y = v[2];
             std::vector<float> xhat = getXHat(D2DX2, D1, k, x, y);
             //PERFORM INTERPOLATION
-            int num_its = 20;
+            int num_its = 15;
             while (num_its-- > 0  && (fabsf(xhat[0]) > 0.5f || fabsf(xhat[1]) > 0.5f || fabsf(xhat[2]) > 0.5f)) {
                 if (fabsf(xhat[0]) > 0.5f) {
-                    k = clmp(update(k), 0, kMax);
+                    k = clmp(k + std::signbit(xhat[0]), 0, kMax);
                 }
                 if (fabsf(xhat[1]) > 0.5f) {
-                    x = clmp(update(x), 0, xMax);
+                    x = clmp(x + std::signbit(xhat[1]), 0, xMax);
                 }
                 if (fabsf(xhat[2]) > 0.5f) {
-                    y = clmp(update(y), 0, yMax);
+                    y = clmp(y + std::signbit(xhat[2]), 0, yMax);
                 }
                 xhat = getXHat(D2DX2, D1, k, x, y);
             }

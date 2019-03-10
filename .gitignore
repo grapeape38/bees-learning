@@ -5,6 +5,9 @@
 *.registration.*
 Test/
 Segment/
+Old/
+EdgeDetect
+edge_detect_inter.h
 FrameTools/
 VideoDriver
 EdgePipeline

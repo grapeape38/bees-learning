@@ -6,8 +6,8 @@ CPPFLAGS=-g -std=c++11 -I ../Halide/include -I ../Halide/tools
 LDLIBS=-L ../Halide/bin
 LDFLAGS=-lHalide -lpthread -ldl $(IMGFLAGS)
 
-PIPE_H=find_maxima.h find_maxima_inter.h get_derivatives.h
-PIPE_LIB=find_maxima.a find_maxima_inter.a get_derivatives.a
+PIPE_H=find_maxima.h find_maxima_inter.h get_derivatives.h edge_detect_inter.h
+PIPE_LIB=find_maxima.a find_maxima_inter.a get_derivatives.a edge_detect_inter.a
 PIPE_GEN=EdgePipeline SIFTGenerator
 
 IMG_OBJS=ImageDriver.o ImageFilter.o SIFTFeatures.o find_maxima.a edge_pipeline.a
@@ -63,14 +63,8 @@ find_maxima.a find_maxima.h: SIFTGenerator
 get_derivatives.a get_derivatives.h: SIFTGenerator
 	./SIFTGenerator -g deriv_gen -f get_derivatives -o . target=host 
 
-#get_descript.a get_descript.h: DescriptorGen
-#	./DescriptorGen -g descript_gen -f get_descript -o . target=host 
-
-#DescriptorGen: DescriptorGen.cpp
-#	g++ DescriptorGen.cpp ../Halide/tools/GenGen.cpp -g -std=c++11 -fno-rtti -I ../Halide/include -L ../Halide/bin -lHalide -lpthread -ldl -o DescriptorGen
-
 SIFTGenerator: SIFTGenerator.cpp
 	g++ SIFTGenerator.cpp ../Halide/tools/GenGen.cpp -g -std=c++11 -fno-rtti -I ../Halide/include -L ../Halide/bin -lHalide -lpthread -ldl -o SIFTGenerator
 
 clean:
-	rm -rf *.o VideoDriver ImageDriver SIFTDriver $(IMG_OBJS) $(VID_OBJS) $(SIFT_OBJS) *.a *.registration.* $(PIPE_GEN) $(PIPE_H) $(PIPE_LIB) 
+	rm -rf *.o VideoDriver ImageDriver SIFTDriver EdgeDetect $(IMG_OBJS) $(VID_OBJS) $(SIFT_OBJS) *.a *.registration.* $(PIPE_GEN) $(PIPE_H) $(PIPE_LIB) 
