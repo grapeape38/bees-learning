@@ -18,9 +18,7 @@ SiftDriver
 SIFTDriver
 find_maxima.h
 find_maxima_inter.h
-FrameFilter.h
 get_derivatives.h
-FeatureExtractor.h
 features/*.txt
 *.sh
 images/
