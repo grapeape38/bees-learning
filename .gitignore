@@ -8,14 +8,15 @@ Segment/
 Old/
 EdgeDetect
 edge_detect_inter.h
+edge_detect.h
 FrameTools/
 VideoDriver
 EdgePipeline
 VideoDriverOld
 ImageDriver
 *pipeline*.h
-SiftDriver
 SIFTDriver
+SIFTGenerator
 find_maxima.h
 find_maxima_inter.h
 get_derivatives.h

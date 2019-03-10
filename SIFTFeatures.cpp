@@ -125,7 +125,7 @@ void SIFTFeatures::computeFeatures(Runtime::Buffer<uint8_t,3> input) {
             }
         }
 
-        log("%0.2f \% keypoints successfully interpolated: ", 100*(double)num_interp / kp1.size());
+        log("%0.2f \% keypoints successfully interpolated", 100*(double)num_interp / kp1.size());
 
         log("# KP after: %d", keypoints.size());
         getDescriptors(mag, theta);

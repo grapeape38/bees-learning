@@ -63,6 +63,12 @@ find_maxima.a find_maxima.h: SIFTGenerator
 get_derivatives.a get_derivatives.h: SIFTGenerator
 	./SIFTGenerator -g deriv_gen -f get_derivatives -o . target=host 
 
+edge_detect_inter.a edge_detect_inter.h: EdgeDetect
+	./EdgeDetect -g edge_detect -f edge_detect_inter -o . target=host 
+
+EdgeDetect: EdgeDetect.cpp
+	g++ EdgeDetect.cpp ../Halide/tools/GenGen.cpp -g -std=c++11 -fno-rtti -I ../Halide/include -L ../Halide/bin -lHalide -lpthread -ldl -o EdgeDetect
+
 SIFTGenerator: SIFTGenerator.cpp
 	g++ SIFTGenerator.cpp ../Halide/tools/GenGen.cpp -g -std=c++11 -fno-rtti -I ../Halide/include -L ../Halide/bin -lHalide -lpthread -ldl -o SIFTGenerator
 
