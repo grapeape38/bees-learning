@@ -4,6 +4,7 @@
 #include <cmath>
 #include <fstream>
 
+//constructor
 SIFTFeatures::SIFTFeatures(VectorToColor *v2c, bool inter, bool verb) {
     vec2color = v2c;
     interleaved = inter;
